@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    
+    <title>Simple Notifications Sender</title>
+
+    <script>
+
+function checkNotificationPromise() {
+    try {
+      Notification.requestPermission().then();
+    } catch(e) {
+      return false;
+    }
+
+    return true;
+}
+function send_notif(title, content) {
+    if(!checkNotificationPromise()) {return;}
+    var notification = new Notification(title, {body: content});
+}
+function submit() {
+    var title_inp = document.getElementById("title");
+    var content_inp = document.getElementById("content");
+
+    var title;
+    var content;
+    if(title_inp) {title = title_inp.value;}
+    if(content_inp) {content = content_inp.value;}
+
+    send_notif(title, content);
+}
+
+    </script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin-top: 10px;
+        }
+        input[id="content"] {
+            width: 60%;
+            height: 40px;
+        }
+        button {
+            margin-top: 20px;
+        }
+    </style>
+  </head>
+  <body>
+    <b>Simple Notifications Sender</b>
+    <input type="text" name="title" id="title" placeholder="Title">  
+    <input type="text" name="content" id="content" placeholder="Content">
+    <button id="send" onclick="submit()">Send!</button>
+  </body>
+</html>
